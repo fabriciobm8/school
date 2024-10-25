@@ -1,0 +1,17 @@
+version: '3.5'
+
+services:
+
+  library-db:
+    image: postgres:9.4
+    ports:
+      - "5331:5432"
+    environment:
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_USER=postgres
+      - POSTGRES_DB=school
+    volumes:
+      - schedule-db-volume:/var/lib/postgresql/data
+
+volumes:
+  schedule-db-volume:
