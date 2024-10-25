@@ -19,4 +19,9 @@ public class PostgreUserRepository implements UserRepository {
     return userRepository.save(entity);
   }
 
+  @Override
+  public List<User> findAll(){
+    return userRepository.findAll();
+  }
+
 }

@@ -2,7 +2,7 @@ version: '3.5'
 
 services:
 
-  library-db:
+  school-db:
     image: postgres:9.4
     ports:
       - "5331:5432"

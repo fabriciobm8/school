@@ -3,6 +3,7 @@ package com.example.school.domain.service;
 import com.example.school.domain.entity.User;
 import com.example.school.domain.repository.UserRepository;
 import com.example.school.domain.to.UserTO;
+import java.util.List;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -22,6 +23,10 @@ public class UserService {
         .role(userTO.getRole())
         .build();
     return userRepository.save(user);
+  }
+
+  public List<User> getUsers() {
+    return userRepository.findAll();
   }
 
 }
