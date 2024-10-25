@@ -2,6 +2,7 @@ package com.example.school.infra.repository;
 
 import com.example.school.domain.entity.User;
 import com.example.school.domain.repository.UserRepository;
+import java.util.List;
 import org.springframework.stereotype.Component;
 
 @Component
