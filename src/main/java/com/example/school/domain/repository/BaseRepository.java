@@ -11,4 +11,6 @@ public interface BaseRepository <T>{
 
   Optional<T> findById(UUID id);
 
+  Optional<T> deleteById(UUID id);
+
 }

@@ -17,7 +17,6 @@ public class PostgreUserRepository implements UserRepository {
 
   @Override
   public User save(User entity) {
-
     return userRepository.save(entity);
   }
 
@@ -29,6 +28,13 @@ public class PostgreUserRepository implements UserRepository {
   @Override
   public Optional<User> findById(UUID id) {
     return userRepository.findById(id);
+  }
+
+  @Override
+  public Optional<User> deleteById(UUID id) {
+    Optional<User> userToDelete = userRepository.findById(id);
+    userToDelete.ifPresent(userRepository::delete);
+    return userToDelete;
   }
 
 }

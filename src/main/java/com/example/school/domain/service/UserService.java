@@ -36,4 +36,8 @@ public class UserService {
         .orElseThrow(() -> new RuntimeException("User not found: " + id));
   }
 
+  public User deleteUserById(UUID id) {
+    return userRepository.deleteById(id).orElseThrow(() -> new RuntimeException("User not found: " +id));
+  }
+
 }
