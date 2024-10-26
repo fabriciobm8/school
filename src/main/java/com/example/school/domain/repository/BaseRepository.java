@@ -13,4 +13,6 @@ public interface BaseRepository <T>{
 
   Optional<T> deleteById(UUID id);
 
+  T update(T user);
+
 }

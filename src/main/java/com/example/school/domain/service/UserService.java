@@ -40,4 +40,16 @@ public class UserService {
     return userRepository.deleteById(id).orElseThrow(() -> new RuntimeException("User not found: " +id));
   }
 
+  public User updateUser (UserTO userTO, UUID id) {
+    User user = this.getUserById(id);
+
+    user.setName(userTO.getName());
+    user.setEmail(userTO.getEmail());
+    user.setPhone(userTO.getPhone());
+    user.setRole(userTO.getRole());
+    return userRepository.save(user);
+  }
+
+
+
 }

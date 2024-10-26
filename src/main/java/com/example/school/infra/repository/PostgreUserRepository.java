@@ -37,4 +37,9 @@ public class PostgreUserRepository implements UserRepository {
     return userToDelete;
   }
 
+  @Override
+  public User update(User user){
+    return userRepository.save(user);
+  }
+
 }
