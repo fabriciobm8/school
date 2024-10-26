@@ -4,6 +4,8 @@ import com.example.school.domain.entity.User;
 import com.example.school.domain.repository.UserRepository;
 import com.example.school.domain.to.UserTO;
 import java.util.List;
+import java.util.Optional;
+import java.util.UUID;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -27,6 +29,11 @@ public class UserService {
 
   public List<User> getUsers() {
     return userRepository.findAll();
+  }
+
+  public User getUserById(UUID id) {
+    return userRepository.findById(id)
+        .orElseThrow(() -> new RuntimeException("User not found: " + id));
   }
 
 }
