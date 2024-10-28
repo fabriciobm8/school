@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -28,7 +29,7 @@ public class UserController {
   }
 
   @PostMapping
-  public ResponseEntity<User> create (@RequestBody UserTO userTO) {
+  public ResponseEntity<User> create (@Validated @RequestBody UserTO userTO) {
     return ResponseEntity.ok(userService.createUser(userTO));
   }
 
@@ -51,7 +52,7 @@ public class UserController {
   }
 
   @PutMapping("/{id}")
-  public ResponseEntity<User> updateUser (@RequestBody UserTO userTO, @PathVariable UUID id){
+  public ResponseEntity<User> updateUser (@Validated @RequestBody UserTO userTO, @PathVariable UUID id){
     return ResponseEntity.ok(userService.updateUser(userTO, id));
   }
 
