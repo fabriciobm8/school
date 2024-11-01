@@ -1,9 +1,10 @@
 package com.example.school.infra.repository;
 
 import com.example.school.domain.entity.User;
+import com.example.school.domain.exceptions.DomainException;
+import com.example.school.domain.exceptions.ErrorCode;
 import com.example.school.domain.repository.UserRepository;
 import java.util.List;
-import java.util.Optional;
 import java.util.UUID;
 import org.springframework.stereotype.Component;
 
@@ -26,14 +27,14 @@ public class PostgreUserRepository implements UserRepository {
   }
 
   @Override
-  public Optional<User> findById(UUID id) {
-    return userRepository.findById(id);
+  public User findById(UUID id) throws DomainException {
+    return userRepository.findById(id).orElseThrow(() -> new DomainException(ErrorCode.USER_NOT_FOUND));
   }
 
   @Override
-  public Optional<User> deleteById(UUID id) {
-    Optional<User> userToDelete = userRepository.findById(id);
-    userToDelete.ifPresent(userRepository::delete);
+  public User deleteById(UUID id) throws DomainException {
+    User userToDelete = findById(id);
+    userRepository.delete(userToDelete);
     return userToDelete;
   }
 

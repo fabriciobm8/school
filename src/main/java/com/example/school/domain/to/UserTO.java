@@ -1,26 +1,24 @@
 package com.example.school.domain.to;
 
 import com.example.school.domain.entity.Role;
-import lombok.AllArgsConstructor;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.Builder;
 import lombok.Data;
-import lombok.NoArgsConstructor;
-import org.antlr.v4.runtime.misc.NotNull;
 
 @Builder
 @Data
-@AllArgsConstructor
-@NoArgsConstructor
 public class UserTO {
 
-  @NotNull
+  @NotBlank
   private String name;
 
-  @NotNull
+  @NotBlank
   private String email;
 
   private String phone;
 
+  @NotNull
   private Role role;
 
 }

@@ -1,14 +1,16 @@
 package com.example.school.application.rest;
 
 import com.example.school.domain.entity.User;
+import com.example.school.domain.exceptions.DomainException;
+import com.example.school.domain.exceptions.ErrorCode;
 import com.example.school.domain.service.UserService;
 import com.example.school.domain.to.UserTO;
+import jakarta.validation.Valid;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 import org.springframework.http.ResponseEntity;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -29,7 +31,18 @@ public class UserController {
   }
 
   @PostMapping
-  public ResponseEntity<User> create (@Validated @RequestBody UserTO userTO) {
+  public ResponseEntity<User> create (@Valid @RequestBody UserTO userTO) throws DomainException{
+    if (userTO.getName() == null || userTO.getName().trim().isEmpty()) {
+      throw new DomainException("Nome é obrigatório", ErrorCode.INVALID_PARAMS);
+    }
+
+    if (userTO.getEmail() == null || userTO.getEmail().trim().isEmpty()) {
+      throw new DomainException("Email é obrigatório", ErrorCode.INVALID_PARAMS);
+    }
+
+    if (userTO.getRole() == null) {
+      throw new DomainException("Papel do usuário é obrigatório", ErrorCode.INVALID_PARAMS);
+    }
     return ResponseEntity.ok(userService.createUser(userTO));
   }
 
@@ -39,12 +52,12 @@ public class UserController {
   }
 
   @GetMapping("/{id}")
-  public ResponseEntity<User> getById(@PathVariable UUID id) {
+  public ResponseEntity<User> getById(@PathVariable UUID id) throws DomainException {
     return ResponseEntity.ok(userService.getUserById(id));
   }
 
   @DeleteMapping("/{id}")
-  public ResponseEntity<Map<String,String>> deleteUserById(@PathVariable UUID id) {
+  public ResponseEntity<Map<String,String>> deleteUserById(@PathVariable UUID id) throws DomainException{
     userService.deleteUserById(id);
     Map<String, String> response = new HashMap<>();
     response.put("message", "User deleted successfully");
@@ -52,7 +65,20 @@ public class UserController {
   }
 
   @PutMapping("/{id}")
-  public ResponseEntity<User> updateUser (@Validated @RequestBody UserTO userTO, @PathVariable UUID id){
+  public ResponseEntity<User> updateUser (@Valid @RequestBody UserTO userTO, @PathVariable UUID id)
+      throws DomainException{
+    if (userTO.getName() == null || userTO.getName().trim().isEmpty()) {
+      throw new DomainException("Nome é obrigatório", ErrorCode.INVALID_PARAMS);
+    }
+
+    if (userTO.getEmail() == null || userTO.getEmail().trim().isEmpty()) {
+      throw new DomainException("Email é obrigatório", ErrorCode.INVALID_PARAMS);
+    }
+
+    if (userTO.getRole() == null) {
+      throw new DomainException("Papel do usuário é obrigatório", ErrorCode.INVALID_PARAMS);
+    }
+
     return ResponseEntity.ok(userService.updateUser(userTO, id));
   }
 
