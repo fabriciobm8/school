@@ -10,6 +10,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -31,18 +32,7 @@ public class UserController {
   }
 
   @PostMapping
-  public ResponseEntity<User> create (@Valid @RequestBody UserTO userTO) throws DomainException{
-    if (userTO.getName() == null || userTO.getName().trim().isEmpty()) {
-      throw new DomainException("Nome é obrigatório", ErrorCode.INVALID_PARAMS);
-    }
-
-    if (userTO.getEmail() == null || userTO.getEmail().trim().isEmpty()) {
-      throw new DomainException("Email é obrigatório", ErrorCode.INVALID_PARAMS);
-    }
-
-    if (userTO.getRole() == null) {
-      throw new DomainException("Papel do usuário é obrigatório", ErrorCode.INVALID_PARAMS);
-    }
+  public ResponseEntity<User> create(@Valid @RequestBody UserTO userTO) throws DomainException {
     return ResponseEntity.ok(userService.createUser(userTO));
   }
 
@@ -65,20 +55,8 @@ public class UserController {
   }
 
   @PutMapping("/{id}")
-  public ResponseEntity<User> updateUser (@Valid @RequestBody UserTO userTO, @PathVariable UUID id)
-      throws DomainException{
-    if (userTO.getName() == null || userTO.getName().trim().isEmpty()) {
-      throw new DomainException("Nome é obrigatório", ErrorCode.INVALID_PARAMS);
-    }
-
-    if (userTO.getEmail() == null || userTO.getEmail().trim().isEmpty()) {
-      throw new DomainException("Email é obrigatório", ErrorCode.INVALID_PARAMS);
-    }
-
-    if (userTO.getRole() == null) {
-      throw new DomainException("Papel do usuário é obrigatório", ErrorCode.INVALID_PARAMS);
-    }
-
+  public ResponseEntity<User> update(@Valid @RequestBody UserTO userTO,
+      @PathVariable("id") UUID id) throws DomainException {
     return ResponseEntity.ok(userService.updateUser(userTO, id));
   }
 

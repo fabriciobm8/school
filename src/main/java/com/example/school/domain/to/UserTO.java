@@ -10,15 +10,15 @@ import lombok.Data;
 @Data
 public class UserTO {
 
-  @NotBlank
+  @NotBlank(message = "Nome é Obrigatório")
   private String name;
 
-  @NotBlank
+  @NotBlank(message = "Email é Obrigatório")
   private String email;
 
   private String phone;
 
-  @NotNull
+  @NotNull(message = "Papel do Usuário é Obrigatório")
   private Role role;
 
 }
