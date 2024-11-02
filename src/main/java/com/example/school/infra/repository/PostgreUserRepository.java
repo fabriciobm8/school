@@ -6,6 +6,8 @@ import com.example.school.domain.exceptions.ErrorCode;
 import com.example.school.domain.repository.UserRepository;
 import java.util.List;
 import java.util.UUID;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -24,6 +26,11 @@ public class PostgreUserRepository implements UserRepository {
   @Override
   public List<User> findAll(){
     return userRepository.findAll();
+  }
+
+  @Override
+  public Page<User> findAll(Pageable pageable){
+    return userRepository.findAll(pageable);
   }
 
   @Override

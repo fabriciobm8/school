@@ -6,6 +6,8 @@ import com.example.school.domain.repository.UserRepository;
 import com.example.school.domain.to.UserTO;
 import java.util.List;
 import java.util.UUID;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -27,8 +29,8 @@ public class UserService {
     return userRepository.save(user);
   }
 
-  public List<User> getUsers() {
-    return userRepository.findAll();
+  public Page<User> getUsers(Pageable pageable) {
+    return userRepository.findAll(pageable);
   }
 
   public User getUserById(UUID id) throws DomainException{
