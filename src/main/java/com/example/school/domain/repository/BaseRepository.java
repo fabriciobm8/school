@@ -15,4 +15,6 @@ public interface BaseRepository <T>{
 
   T deleteById(UUID id) throws DomainException;
 
+  boolean existsByEmail(String email) throws DomainException;
+
 }

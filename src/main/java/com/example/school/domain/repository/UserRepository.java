@@ -8,4 +8,6 @@ public interface UserRepository extends BaseRepository<User>{
 
   Page<User> findAll(Pageable pageable);
 
+  boolean existsByEmail(String email);
+
 }

@@ -34,6 +34,11 @@ public class PostgreUserRepository implements UserRepository {
   }
 
   @Override
+  public boolean existsByEmail(String email) {
+    return userRepository.existsByEmail(email);
+  }
+
+  @Override
   public User findById(UUID id) throws DomainException {
     return userRepository.findById(id).orElseThrow(() -> new DomainException(ErrorCode.USER_NOT_FOUND));
   }
